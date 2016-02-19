@@ -1,0 +1,82 @@
+---
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Add groups
+  group:
+    name: '{{ item.groupname }}'
+    gid: '{{ item.gid|default(omit) }}'
+    system: '{{ item.is_system_group|default("no") }}'
+  with_items: users_groups_available
+  when: users_groups_available is defined
+
+- name: Add groups for users
+  group:
+    name: '{{ item.username }}'
+    gid: '{{ item.gid if item.gid is defined else item.uid|default(omit)}}'
+    system: '{{ item.is_system_user|default("no") }}'
+  with_items: users_available
+  when: users_available is defined
+
+- name: Add users
+  user:
+    name: '{{ item.username }}'
+    uid: '{{ item.uid|default(omit) }}'
+    comment: '{{ item.name|default(omit) }}'
+    group: '{{ item.group|default(item.username) }}'
+    groups: '{{ item.groups|join(",") if item.groups is defined else omit}}'
+    home: '{{ item.home|default(users_homedir + "/" + item.username) }}'
+    move_home: '{{ item.movehomedir|default(omit) }}'
+    shell: '{{ item.shell|default(users_shell) }}'
+    createhome: '{{ item.create_homedir|default("yes") }}'
+    password: '{{ item.password|default("!") }}'
+    update_password: '{{ item.update_password|default(users_update_password) }}'
+    system: '{{ item.is_system_user|default("no") }}'
+  with_items: users_available
+  when: users_available is defined
+
+- name: Force homedir permissions
+  file:
+    path: '{{ item.homedir|default(users_homedir + "/" + item.username) }}'
+    owner: '{{ item.homedir_owner|default(item.username) }}'
+    group: '{{ item.homedir_group|default(item.username) }}'
+    mode: '{{ item.homedir_perm|default(users_homedir_perm) }}'
+  with_items: users_available
+
+- name: Set authorized_keys for users (using name username)
+  authorized_key:
+    user: '{{ item.username }}'
+    key: '{{ lookup("file", users_pubkey_location + item.username + ".pub") }}'
+  with_items: users_available
+  when: users_available is defined and item.create_homedir|default(True) and item.upload_key|default(False) == True and item.auth_file|default(False) == False
+
+- name: Set authorized_keys for users (using auth_file)
+  authorized_key:
+    user: '{{ item.username }}'
+    key: '{{ lookup("file", users_pubkey_location + item.auth_file) }}'
+  with_items: users_available
+  when: users_available is defined and item.create_homedir|default(True) and item.upload_key|default(False) == True and item.auth_file|default(False) != False
+
+- name: Remove groups
+  group:
+    name: '{{ item }}'
+    state: absent
+  with_items: users_groups_deleted
+  when: users_groups_deleted is defined
+
+# TODO:
+# Check for running processes (ps -u {{ item.username }}) and prompt to kill them if there are running processes (pkill -u {{ item.username }})
+- name: Remove users
+  user:
+    name: '{{ item.username }}'
+    state: absent
+    remove: yes
+  with_items: users_deleted
+  when: users_deleted is defined
+
+- name: Remove groups for users
+  group:
+    name: '{{ item.username }}'
+    state: absent
+  with_items: users_deleted
+  when: users_deleted is defined

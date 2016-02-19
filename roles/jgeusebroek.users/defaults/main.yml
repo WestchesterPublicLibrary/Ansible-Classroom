@@ -1,0 +1,20 @@
+---
+users_enabled: []
+users_deleted: []
+
+users_groups_available: []
+users_groups_deleted: []
+
+# Always will update passwords if they differ. on_create will only set the password for newly created users.
+users_update_password: always
+
+# This wil result in "/home/username"
+users_homedir: "/home"
+
+# User homedir permissions
+users_homedir_perm: "0750"
+
+# User shell
+users_shell: /bin/bash
+
+users_pubkey_location: '{{ playbook_dir }}/files/pubkeys/{{ inventory_hostname }}/'

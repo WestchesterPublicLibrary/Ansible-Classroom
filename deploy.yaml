@@ -1,0 +1,11 @@
+---
+- hosts: classroom
+  roles:
+   - role: nexeck.packages
+     packages: # list of packages
+       - name: htop
+       - name: curl
+       - name: python-software-properties
+   - { role: loranger.debian-git }
+   - { role: jgeusebroek.users,tags: ["users"] }
+   - role: Stouts.hostname

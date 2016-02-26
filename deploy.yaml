@@ -1,8 +1,0 @@
----
-- hosts: classroom
-  become: root
-  roles:
-   - role: tersmitten.apt
-   - role: loranger.debian-git
-   - { role: jgeusebroek.users,tags: ["users"] }
-   - role: Stouts.hostname

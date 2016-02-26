@@ -1,0 +1,15 @@
+---
+- hosts: itClassroom
+  become: root
+  roles:
+    - common
+    - classroom
+    - { role: tersmitten.apt }
+    - { role: angstwad.docker_ubuntu }
+
+#- hosts: it
+#  become: root
+#  roles:
+#    - common
+#    - {role: marklee77.docker }
+#    - { role: geerlingguy.dotfiles }

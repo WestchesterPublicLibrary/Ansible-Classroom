@@ -1,0 +1,5 @@
+---
+- hosts: itClassroom
+  sudo: yes
+  roles:
+    - user

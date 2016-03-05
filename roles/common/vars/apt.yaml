@@ -18,5 +18,5 @@ apt_upgrade_type: dist
 apt_clean: true
 apt_autoremove: true
 apt_install:['python-software-properties','htop','glances','wget','curl','nano','pip','python-netaddr']
-apt_remove:[]
-apt_remove_purge: false
+apt_remove:['pvpgn','steam-launcer']
+apt_remove_purge: true

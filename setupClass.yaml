@@ -1,11 +1,11 @@
 ---
 - hosts: itClassroom
-  become: root
+  become: true
   roles:
     - common
     - classroom
-    - { role: tersmitten.apt }
-    - { role: angstwad.docker_ubuntu }
+#    - { role: tersmitten.apt }
+#    - { role: angstwad.docker_ubuntu }
 
 #- hosts: it
 #  become: root

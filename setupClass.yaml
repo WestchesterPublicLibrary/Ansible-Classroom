@@ -4,8 +4,7 @@
   roles:
     - common
     - classroom
-#    - { role: tersmitten.apt }
-#    - { role: angstwad.docker_ubuntu }
+    - arduino
 
 #- hosts: it
 #  become: root

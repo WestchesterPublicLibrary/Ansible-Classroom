@@ -1,18 +1,4 @@
 ---
-- name: Create Admin User
-  user:
-    name=admin
-    password={% verbatim %}{{ admin_password }}{% endverbatim %}
-    groups=sudo
-    append=yes
-    shell=/bin/bash
-
-- name: Add Admin Authorized Key
-  authorized_key:
-    user=admin
-    key="{% verbatim %}{{ common_public_key }}{% endverbatim %}"
-    state=present
-
 - name: Create Deploy User
   user:
     name=deploy
@@ -26,20 +12,6 @@
     user=deploy
     key="{% verbatim %}{{ common_public_key }}{% endverbatim %}"
     state=present---
-- name: Create Admin User
-  user:
-    name=admin
-    password={% verbatim %}{{ admin_password }}{% endverbatim %}
-    groups=sudo
-    append=yes
-    shell=/bin/bash
-
-- name: Add Admin Authorized Key
-  authorized_key:
-    user=admin
-    key="{% verbatim %}{{ common_public_key }}{% endverbatim %}"
-    state=present
-
 - name: Create Deploy User
   user:
     name=deploy

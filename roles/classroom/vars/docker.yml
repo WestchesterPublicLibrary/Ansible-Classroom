@@ -1,2 +1,0 @@
-# Install to an instance running Ubuntu 13.10
-image: "bittorrent/sync"

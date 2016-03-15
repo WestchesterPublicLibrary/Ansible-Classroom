@@ -1,6 +1,0 @@
-- name: Install Docker on Rax Server
-  hosts: docker
-  roles:
-    - angstwad.docker_ubuntu
-
-    #docker pull bittorrent/sync

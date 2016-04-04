@@ -7,11 +7,8 @@
     - thunderbird
     - pidgin
 
-
-- apt: update_cache=yes
-
 # Install Files
-- apt: state=present name={{item}}
+- apt: state=absent purge=yes update_cache=yes name={{item}}
   with_items:
    # Screensavers
     - xscreensaver-gl
@@ -27,5 +24,6 @@
     - wget
     - curl
     - nano
+    - pip
     - python-pycurl
     - tightvncserver

@@ -5,7 +5,8 @@
   pre_tasks:
     - name: Update apt cache if needed.
       apt: update_cache=yes cache_valid_time=3600
-    - name: Update System
-      apt: upgrade=dist
+    #- name: Update System
+      #apt: upgrade=dist autoremove=yes
   roles:
     - signage
+    - snmpd

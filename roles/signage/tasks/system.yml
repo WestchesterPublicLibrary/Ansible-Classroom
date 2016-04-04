@@ -1,6 +1,6 @@
 ---
 - name: Ensure NTP (for time syncronization) is installed
-  apt: name=ntpd state=present
+  apt: name=ntp state=present
 - name: Ensure NTP is running
   service: name=ntpd state=started enabled=yes
 

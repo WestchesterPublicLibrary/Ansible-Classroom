@@ -13,7 +13,7 @@
       - yelp-xsl
       - yelp
       - minecraft*
-
+      - chromium-inspector
     tags:
       - deploy
 
@@ -27,11 +27,15 @@
       - curl
       - nano
       - python-pycurl
+      - libc6
+      - libc6-dev      
     tags:
       - deploy
 
   - name: Download Chrome Arm
-    get_url: url=https://dl.dropboxusercontent.com/u/87113035/{{ item }} dest=/home/pi/{{ item }}
+    get_url:
+      url: https://dl.dropboxusercontent.com/u/87113035/{{ item }}
+      dest: /home/pi/{{ item }}
     with_items:
       - chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb
       - chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
@@ -43,8 +47,8 @@
   - name: Install Chrome Arm
     apt: deb=/home/pi/{{ item }}
     with_items:
-      - chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb
       - chromium-browser_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
+      - chromium-browser-l10n_48.0.2564.82-0ubuntu0.15.04.1.1193_all.deb
       - chromium-codecs-ffmpeg-extra_48.0.2564.82-0ubuntu0.15.04.1.1193_armhf.deb
     tags:
       - deploy

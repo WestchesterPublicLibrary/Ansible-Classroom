@@ -1,5 +1,5 @@
 ---
 - hosts: itClassroom
-  sudo: yes
+  become: true
   roles:
     - user

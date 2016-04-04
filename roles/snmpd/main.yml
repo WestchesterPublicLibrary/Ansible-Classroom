@@ -1,0 +1,5 @@
+- hosts: all
+  become: true
+  handlers:
+    - name: restart snmp
+      service: name=snmpd state=restarted

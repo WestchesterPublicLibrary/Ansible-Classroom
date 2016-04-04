@@ -1,8 +1,0 @@
----
-# Run the equivalent of "apt-get update" as a separate step
-- apt: update_cache=yes name={{item}}
-  with_items:
-  - arduino
-  - arduino-core
-
-- include: permissions.yml

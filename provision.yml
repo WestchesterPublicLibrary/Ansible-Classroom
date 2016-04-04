@@ -1,5 +1,9 @@
 ---
-- hosts: itClassroom
-  sudo: yes
+- hosts: all
+  become: true
+#  accelerate: true
+  pre_tasks:
+    - name: Update apt cache if needed.
+      apt: update_cache=yes cache_valid_time=3600
   roles:
-    - user
+    - signage

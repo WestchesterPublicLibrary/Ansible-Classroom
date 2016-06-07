@@ -1,1 +1,3 @@
-ansible-playbook shutdownClass.yml -i hosts
+scriptLOC="/home/joe/Documents/src/ansible/classroom"
+
+ansible-playbook $scriptLOC/shutdownClass.yml -i $scriptLOC/hosts
